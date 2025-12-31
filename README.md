@@ -1,2 +1,2 @@
 # project-26
-All js Projects
+This is my simple js project i learn on 2026
