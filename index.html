@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="style1.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Gamez</title>
+    <style>
+       *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+body{
+    background: linear-gradient(to right, rgb(147, 205, 224), rgb(121, 222, 121));
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.bombo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;    
+    margin-top: 40%;
+    gap: 10px;
+    border-radius: 13px;
+    box-shadow: 0 0 5px rgba(35, 66, 2, 0.75);
+}
+.bombo h1{
+    font-weight: 300;
+}
+.bombo input{
+    width: 210px;
+    height: 30px;
+    font-size: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    
+}
+.bombo input:focus {
+     outline: none;
+      border: 2px solid #4CAF50; 
+      box-shadow: 2px 0 3px rgba(76, 175, 79, 0.586); /* efek glow */ 
+    }
+.bombo button{
+    width: 160px;
+    height: 30px;
+    border: none;
+    background: linear-gradient(-45deg, rgb(48, 156, 48),rgb(59, 153, 184));
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.7s ease;
+    font-weight: 400;
+    margin-top: 20px;
+    color: white;
+}
+.bombo button:hover{
+    box-shadow: 1px 3px 8px rgba(56, 55, 55, 0.416);
+    font-weight: bolder;
+}
+.bombo p{
+    margin-top: 2%;
+    font-size: 20px;
+} 
+    </style>
 </head>
 <body>
     <div class="bombo">
@@ -14,6 +75,53 @@
     <p id="answer"></p>
     </div>
 
-    <script src="script1.js"></script>
+    <script>
+        //Number Guessing Games
+
+
+const minNum = 1;
+const maxNum  = 100;
+const random = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+let input = document.getElementById("input");
+let submit = document.getElementById("submit")
+let answer = document.getElementById("answer")
+let attemps = 0;
+
+
+submit.onclick = function() {
+
+    let guess = document.getElementById("input").value;
+    guess = Number(guess);
+
+    if(isNaN(guess)){
+        answer.textContent = "Enter valid Number";
+    }
+    else if(guess < minNum || guess > maxNum){
+        answer.textContent = "Enter valid Number";
+}   
+else {
+    attemps++;
+     if(guess > random){
+        answer.textContent = "Its To high";
+    }
+    else if(guess < random){
+        answer.textContent = "Its To Low";
+    }
+    else if(attemps === 1){
+        answer.textContent = `Woahh You are Lucky 🤯`;
+    }
+    else if(attemps === 3){
+        answer.textContent = `Thats quick thooo 😮 you just need ${attemps} times to try`;
+    }
+    else if(attemps === 10){
+       answer.textContent = `hmmm ${attemps} times to try, still fast tho`; 
+    }
+    else{
+        answer.textContent = `The answer is ${random} and you tried ${attemps}x`;
+    }
+}
+}
+console.log(random);
+    </script>
 </body>
 </html>
