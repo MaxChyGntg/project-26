@@ -1,2 +1,2 @@
 # project-26
-Max Project on 2026
+All js Projects
