@@ -3,28 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Temp Convert</title>
 </head>
-
 <style>
-    body {
+    body{
     background-color: antiquewhite;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    align-items: center;
 }
-.made{ 
-    margin-top: 70px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.489);
+.made{
+    color: rgb(35, 23, 7);
 }
-
-/* container */
-.bombo {
-    width: 100%;
+.made span{
+    background-color: rgb(234, 198, 152);
+    border-radius: 11px;
+}
+@media screen and (max-width: 768px) {
+  body {
+    background-color: rgb(217, 232, 237);
+  }
+  .made{
+    margin-top: 30px;
+  }
+  .made span{
+    background-color: rgb(141, 197, 213);
+    border-radius: 11px;
+    color: rgb(226, 224, 224);
+}
+  .bombo{
+    margin-top: 7%;
+    width: 30%;
+  }
+  .bombo h1{
+    font-size: 23px;
+  }
+  #input{
+      width: 70px;
+    padding: 3px;
+  }
+}
+.bombo{
+    width: 40%;
     height: 100%;
     text-align: center;
     align-items: center;
@@ -32,29 +55,20 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.489);
     border-radius: 10px;
 }
-
-
-/* input */
-.bombo input {
+.bombo input{
     margin-top: 10px;
     border: 1px solid #5d5a5aa2;
     padding: 13px;
     font-size: 21px;
     cursor: pointer;
-    border-radius: 5px;
 }
-
-.bombo input:focus {
+.bombo input:focus{
     outline: none;
-    border-color: #B37939;
 }
-
-.bombo input[type="radio"] {
-    accent-color: #A47035;
+.bombo input[type = "radio"]{
+    accent-color: rgb(222, 158, 40);
 }
-
-/* button */
-.bombo button {
+.bombo button{
     margin-top: 10px;
     width: 120px;
     height: 30px;
@@ -63,73 +77,82 @@
     transition: 0.7s ease;
     cursor: pointer;
 }
-
-.bombo button:hover {
+.bombo button:hover{
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.489);
 }
-
-/* label */
-.bombo label {
+.bombo label{
     font-size: 1.2em;
     font-weight: 700;
 }
-
-/* result */
-.bombo p {
+.bombo p{
     font-size: 22px;
     font-weight: 700;
+    transition: 0.4s ease-in;
 }
 </style>
-
 <body>
-    <div class="bombo">
-        <h1>Temperature Converter</h1>
+    <h1 class="made">Made By <span>MaxChy</span></h1>
+<div class="bombo">
+    <h1>Temperature Converter</h1>
+    <input type="number" id="input" placeholder="Enter Temperature"><br>
+    <input type="radio" id="ctof" name="unit">
+    <label>Celsius ➡️ Farenheit </label><br>
+     <input type="radio" id="ftoc" name="unit">
+    <label>Farenheit ➡️ Celcius </label><br>
+    <button id="answer" onclick="convert()">Submit</button>
+    <p id="result"></p>
+</div>
 
-        <input type="number" id="input" placeholder="Enter">
-        <br>
 
-        <input type="radio" id="ctof" name="unit">
-        <label for="ctof">Celsius → Fahrenheit</label>
-        <br>
 
-        <input type="radio" id="ftoc" name="unit">
-        <label for="ftoc">Fahrenheit → Celsius</label>
-        <br>
-
-        <button id="answer" onclick="convert()">Submit</button>
-
-        <p id="result"></p>
-    </div>
-    
-    <h1 class="made">Made By Max 1/1/2026</h1>
-
-<script>
-    const input = document.getElementById("input");
-const ctof = document.getElementById("ctof");
-const ftoc = document.getElementById("ftoc");
-const result = document.getElementById("result");
-
+    <script>
+        const input = document.getElementById("input")
+const ctof = document.getElementById("ctof")
+const ftoc = document.getElementById("ftoc")
+const result = document.getElementById("result")
 let temp;
 
-function convert() {
-    if (ctof.checked) {
+function convert(){
+    if(ctof.checked){
         temp = Number(input.value);
-        temp = temp * 9 / 5 + 32;
+        temp = temp * 9/5 + 32;
         result.textContent = `${temp.toFixed(1)}°F`;
-        
-    } else if (ftoc.checked) {
-        temp = Number(input.value);
-        temp = (temp - 32) * 5 / 9;
+        const suhuText = result.textContent;
+        const suhu = parseFloat(suhuText);
+        if(suhu >= 98){
+            result.style.color = "red";
+        }
+        else if(suhu > 70 && suhu <= 97){
+            result.style.color = "green";
+        }
+        else{
+            result.style.color = "blue";
+        }
+    }
+    else if(ftoc.checked){
+         temp = Number(input.value);
+        temp = (temp -32) *  (5/9);
         result.textContent = `${temp.toFixed(1)}°C`;
-        
-    } else if (input.value === "") {
+        const suhuText = result.textContent;
+        const suhu = parseFloat(suhuText);
+        if(suhu >= 38   ){
+            result.style.color = "red";
+        }
+        else if(suhu > 25 && suhu <= 37){
+            result.style.color = "green";
+        }
+        else{
+            result.style.color = "blue";
+        }
+    }
+    else if(input === 0){
         result.textContent = "Please Enter Valid Number";
-        
-    } else {
+    }
+    else{
         result.textContent = "Select a Conversion Unit!";
+        result.style.color = "red";
     }
 }
-</script>
-
+    </script>
 </body>
 </html>
